@@ -1,6 +1,6 @@
 Flask
 Flask-RESTful
 requests
-PyMySQL
+#PyMySQL
 #mysql
 mysql-connector-python
