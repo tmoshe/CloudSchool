@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chuck Norris Jokes</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="font-weight: bold;">Chuck Norris Jokes Generator</h1>
+        <p>Please choose a Chuck Norris Joke</p>
+        <button id="get-joke-btn" onclick="getRandomJoke()">Get Random Joke</button>
+        <select id="joke-category">
+            <option value="">Select Category</option>
+            <option value="animal">Animal</option>
+            <option value="career">Career</option>
+            <option value="celebrity">Celebrity</option>
+            <option value="dev">Dev</option>
+            <option value="fashion">Fashion</option>
+            <option value="food">Food</option>
+            <option value="history">History</option>
+            <option value="money">Money</option>
+            <option value="movie">Movie</option>
+            <option value="music">Music</option>
+            <option value="political">Political</option>
+            <option value="religion">Religion</option>
+            <option value="science">Science</option>
+            <option value="sport">Sport</option>
+            <option value="travel">Travel</option>
+        </select>
+        <button id="get-category-joke-btn" onclick="getCategoryJoke()">Get Joke from Category</button>
+        <div>
+            <h2>Chuck Norris Joke:</h2>
+            <textarea id="joke-text" rows="5" cols="50" readonly></textarea>
+        </div>
+    </div>
+
+    <script>
+        async function getRandomJoke() {
+            const response = await fetch('/get_joke');
+            const data = await response.json();
+            document.getElementById('joke-text').value = data.joke;
+        }
+
+        async function getCategoryJoke() {
+            const category = document.getElementById('joke-category').value;
+            if (!category) {
+                alert('Please select a category.');
+                return;
+            }
+            const response = await fetch(`/get_joke?category=${category}`);
+            const data = await response.json();
+            document.getElementById('joke-text').value = data.joke;
+        }
+    </script>
+</body>
+</html>
